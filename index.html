@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mandiri Digital Onboarding Hub - Generator Material Promosi</title>
+    
+    <!-- Google Fonts & Font Awesome -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        mandiri: {
+                            navy: '#002D62',
+                            blue: '#00529B',
+                            gold: '#F5A623',
+                            goldDark: '#D48806',
+                            lightBlue: '#E6F0FA',
+                            bg: '#F8FAFC'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        poppins: ['Poppins', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- QRCode.js & html2canvas Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <style>
+        body {
+            background-color: #f1f5f9;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+
+        /* Optimized Direct Print Styles */
+        @media print {
+            @page {
+                size: auto;
+                margin: 0;
+            }
+            html, body {
+                background: #ffffff !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                height: 100vh;
+                overflow: hidden;
+            }
+            body * {
+                visibility: hidden !important;
+            }
+            #printable-area, #printable-area * {
+                visibility: visible !important;
+            }
+            #printable-area {
+                position: fixed !important;
+                left: 50% !important;
+                top: 50% !important;
+                transform: translate(-50%, -50%) !important;
+                width: auto !important;
+                height: auto !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                box-shadow: none !important;
+            }
+            .card-preview {
+                box-shadow: none !important;
+                margin: 0 auto !important;
+                page-break-inside: avoid;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            .card-preview.hidden {
+                display: none !important;
+            }
+        }
+
+        /* Card Patterns & Effects */
+        .pattern-bg {
+            background-color: #002D62;
+            background-image: radial-gradient(rgba(245, 166, 35, 0.15) 1px, transparent 1px), radial-gradient(rgba(255, 255, 255, 0.1) 1px, #002D62 1px);
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 10px;
+        }
+
+        .template-card {
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .template-card:hover {
+            transform: translateY(-2px);
+        }
+        .template-card.active {
+            border-color: #00529B;
+            background-color: #EFF6FF;
+            box-shadow: 0 4px 12px rgba(0, 82, 155, 0.12);
+        }
+    </style>
+</head>
+<body class="text-slate-800 min-h-screen flex flex-col antialiased">
+
+    <!-- Top Header -->
+    <header class="bg-gradient-to-r from-mandiri-navy to-mandiri-blue text-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center border border-white/20">
+                    <i class="fa-solid fa-qrcode text-mandiri-gold text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="font-poppins font-bold text-base sm:text-lg leading-tight flex items-center gap-2">
+                        Mandiri Digital Onboarding Hub
+                        <span class="bg-mandiri-gold/20 text-mandiri-gold text-xs px-2.5 py-0.5 rounded-full font-medium border border-mandiri-gold/30">
+                            Cabang <span class="display-branch-code">11541</span>
+                        </span>
+                    </h1>
+                    <p class="text-xs text-slate-300">Generator Material Promosi & QR Referral Onboarding</p>
+                </div>
+            </div>
+
+            <div class="hidden md:flex items-center gap-4 text-xs">
+                <div class="bg-white/10 px-3 py-1.5 rounded-lg border border-white/10 flex items-center gap-2">
+                    <i class="fa-solid fa-building-columns text-mandiri-gold"></i>
+                    <span>Cabang: <strong class="display-branch-info">11541 - Jakarta Glodok Pancoran</strong></span>
+                </div>
+                <div class="bg-emerald-500/20 text-emerald-300 px-3 py-1.5 rounded-lg border border-emerald-500/30 flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                    <span>System Active</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Workspace Container -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
+        
+        <!-- Left Sidebar: Configuration Controls -->
+        <div class="lg:col-span-5 flex flex-col gap-5">
+            
+            <!-- Staff & Referral Form -->
+            <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200">
+                <div class="flex items-center gap-2 border-b border-slate-100 pb-3 mb-4">
+                    <i class="fa-solid fa-user-gear text-mandiri-blue"></i>
+                    <h2 class="font-poppins font-bold text-sm text-mandiri-navy">1. Data Pegawai & Cabang</h2>
+                </div>
+
+                <div class="space-y-4 text-xs">
+                    <div>
+                        <label class="block font-semibold text-slate-700 mb-1">Nama Pegawai *</label>
+                        <input type="text" id="input-staff-name" value="Budi Santoso" placeholder="Masukkan nama Pegawai..."
+                            class="w-full px-3 py-2 rounded-lg border border-slate-300 focus:outline-none focus:border-mandiri-blue focus:ring-2 focus:ring-mandiri-blue/20 transition">
+                    </div>
+
+                    <div>
+                        <label class="block font-semibold text-slate-700 mb-1">Pilih Cabang (Kode - Nama Cabang) *</label>
+                        <select id="select-branch-code" class="w-full px-3 py-2 font-semibold text-mandiri-navy rounded-lg border border-slate-300 focus:outline-none focus:border-mandiri-blue focus:ring-2 focus:ring-mandiri-blue/20 transition bg-white">
+                            <option value="11500">11500 - Jakarta Kota</option>
+                            <option value="11508">11508 - Jakarta Glodok Plaza</option>
+                            <option value="11514">11514 - Jakarta Pasar Pagi Lama</option>
+                            <option value="11516">11516 - Jakarta Pejagalan</option>
+                            <option value="11525">11525 - Jakarta Pinangsia</option>
+                            <option value="11529">11529 - Jakarta Lindeteves</option>
+                            <option value="11535">11535 - Jakarta Gajah Mada</option>
+                            <option value="11537">11537 - Jakarta Jembatan Lima</option>
+                            <option value="11538">11538 - Jakarta Ketapang Indah</option>
+                            <option value="11539">11539 - Jakarta Mangga Besar</option>
+                            <option value="11540">11540 - Jakarta Hayam Wuruk</option>
+                            <option value="11541" selected>11541 - Jakarta Glodok Pancoran</option>
+                            <option value="11542">11542 - Jakarta Gedung PGN</option>
+                            <option value="11543">11543 - Jakarta Mangga Besar Raya</option>
+                            <option value="11544">11544 - Jakarta Kebon Jeruk III</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block font-semibold text-slate-700 mb-1">Kode Referral Personal / Promo *</label>
+                        <div class="relative">
+                            <input type="text" id="input-ref-code" value="MGM1AUW8PV" placeholder="MGM1AUW8PV"
+                                class="w-full px-3 py-2 font-mono font-bold text-mandiri-navy rounded-lg border border-slate-300 focus:outline-none focus:border-mandiri-blue focus:ring-2 focus:ring-mandiri-blue/20 transition">
+                            <button type="button" onclick="resetDefaultRef()" 
+                                class="absolute right-2 top-1/2 -translate-y-1/2 text-[10px] text-mandiri-blue font-semibold hover:underline bg-mandiri-light-blue px-2 py-0.5 rounded">
+                                Reset Default
+                            </button>
+                        </div>
+                        <p class="text-[10px] text-slate-500 mt-1">
+                            <i class="fa-solid fa-circle-info text-mandiri-blue"></i> Terkunci otomatis ke AppsFlyer DeepLink Livin Mandiri.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Template Selector -->
+            <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200">
+                <div class="flex items-center gap-2 border-b border-slate-100 pb-3 mb-4">
+                    <i class="fa-solid fa-layer-group text-mandiri-blue"></i>
+                    <h2 class="font-poppins font-bold text-sm text-mandiri-navy">2. Pilih Format Cetak</h2>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3 text-xs">
+                    <!-- Template 1: Display Meja (CS) -->
+                    <button type="button" onclick="selectTemplate('displaymeja')" id="tpl-btn-displaymeja"
+                        class="template-card active text-left p-3 rounded-xl border border-slate-200 flex flex-col gap-2">
+                        <div class="w-8 h-8 rounded-lg bg-mandiri-navy text-mandiri-gold flex items-center justify-center font-bold">
+                            <i class="fa-solid fa-desktop"></i>
+                        </div>
+                        <div>
+                            <div class="font-bold text-slate-800">Display Meja (CS)</div>
+                            <div class="text-[10px] text-slate-500">Stand Akrilik Meja CS / Service Desk</div>
+                        </div>
+                    </button>
+
+                    <!-- Template 2: ID Card -->
+                    <button type="button" onclick="selectTemplate('idcard')" id="tpl-btn-idcard"
+                        class="template-card text-left p-3 rounded-xl border border-slate-200 flex flex-col gap-2">
+                        <div class="w-8 h-8 rounded-lg bg-mandiri-blue text-white flex items-center justify-center font-bold">
+                            <i class="fa-solid fa-id-card"></i>
+                        </div>
+                        <div>
+                            <div class="font-bold text-slate-800">ID Card Pegawai</div>
+                            <div class="text-[10px] text-slate-500">Kartu Identitas / Insert Lanyard</div>
+                        </div>
+                    </button>
+
+                    <!-- Template 3: Di Belakang Kartu Nama (Simple Hitam Putih) -->
+                    <button type="button" onclick="selectTemplate('namacard')" id="tpl-btn-namacard"
+                        class="template-card text-left p-3 rounded-xl border border-slate-200 flex flex-col gap-2">
+                        <div class="w-8 h-8 rounded-lg bg-slate-800 text-white flex items-center justify-center font-bold">
+                            <i class="fa-solid fa-address-card"></i>
+                        </div>
+                        <div>
+                            <div class="font-bold text-slate-800">Belakang Kartu Nama</div>
+                            <div class="text-[10px] text-slate-500">Desain Simple Hitam Putih (B&W)</div>
+                        </div>
+                    </button>
+
+                    <!-- Template 4: Story WhatsApp -->
+                    <button type="button" onclick="selectTemplate('story')" id="tpl-btn-story"
+                        class="template-card text-left p-3 rounded-xl border border-slate-200 flex flex-col gap-2">
+                        <div class="w-8 h-8 rounded-lg bg-emerald-500 text-white flex items-center justify-center font-bold">
+                            <i class="fa-brands fa-whatsapp"></i>
+                        </div>
+                        <div>
+                            <div class="font-bold text-slate-800">WhatsApp Story</div>
+                            <div class="text-[10px] text-slate-500">Digital Banner Share 9:16</div>
+                        </div>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200 flex flex-col gap-3">
+                <button type="button" onclick="downloadImage()" 
+                    class="w-full bg-gradient-to-r from-mandiri-navy to-mandiri-blue hover:from-mandiri-blue hover:to-mandiri-navy text-white font-poppins font-bold py-3 px-4 rounded-xl shadow-md hover:shadow-lg transition flex items-center justify-center gap-2 text-sm">
+                    <i class="fa-solid fa-download text-mandiri-gold"></i>
+                    <span>Download Gambar Siap Cetak (PNG)</span>
+                </button>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <button type="button" onclick="printCard()" 
+                        class="w-full bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold py-2.5 px-3 rounded-xl transition text-xs flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-print"></i>
+                        <span>Cetak Langsung</span>
+                    </button>
+
+                    <button type="button" onclick="copyTargetLink()" 
+                        class="w-full bg-mandiri-light-blue hover:bg-blue-100 text-mandiri-blue font-semibold py-2.5 px-3 rounded-xl transition text-xs flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-link"></i>
+                        <span>Salin Link Referral</span>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Right Main View: Live Interactive Card Canvas Preview -->
+        <div class="lg:col-span-7 flex flex-col gap-4">
+            
+            <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200 flex-1 flex flex-col">
+                <div class="flex items-center justify-between border-b border-slate-100 pb-3 mb-4">
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-eye text-mandiri-blue"></i>
+                        <h2 class="font-poppins font-bold text-sm text-mandiri-navy">Live Design Preview</h2>
+                    </div>
+                    <span id="badge-tpl-name" class="bg-mandiri-light-blue text-mandiri-blue font-semibold text-[11px] px-3 py-1 rounded-full">
+                        Display Meja (CS)
+                    </span>
+                </div>
+
+                <!-- Card Canvas Wrapper -->
+                <div class="flex-1 bg-slate-100 rounded-xl p-4 sm:p-8 flex items-center justify-center min-h-[480px] overflow-auto relative">
+                    
+                    <!-- Printable Container Target -->
+                    <div id="printable-area">
+                        
+                        <!-- VIEW 1: DISPLAY MEJA (CS) -->
+                        <div id="preview-displaymeja" class="card-preview w-[320px] h-[460px] pattern-bg text-white rounded-2xl shadow-2xl p-6 flex flex-col justify-between relative border-4 border-mandiri-gold/40 overflow-hidden">
+                            
+                            <!-- Header Text & Badge -->
+                            <div class="flex justify-between items-start z-10">
+                                <div>
+                                    <!-- Clean Bold Text BANK MANDIRI -->
+                                    <div class="font-poppins font-black text-2xl tracking-tight text-white">
+                                        BANK MANDIRI
+                                    </div>
+                                    <div class="text-[10px] text-slate-300 mt-0.5">
+                                        Cabang <span class="display-branch-name">Jakarta Glodok Pancoran</span> (<span class="display-branch-code">11541</span>)
+                                    </div>
+                                </div>
+                                <div class="bg-mandiri-gold text-mandiri-navy font-extrabold text-[10px] px-2.5 py-1 rounded-md shadow uppercase">
+                                    Customer Service
+                                </div>
+                            </div>
+
+                            <!-- Title -->
+                            <div class="text-center z-10 my-2">
+                                <h3 class="font-poppins font-bold text-base text-mandiri-gold leading-tight">
+                                    BUKA REKENING SEKARANG!
+                                </h3>
+                                <p class="text-[11px] text-slate-200 mt-1">
+                                    Scan QR Code di bawah untuk pembukaan rekening serba cepat & praktis
+                                </p>
+                            </div>
+
+                            <!-- QR Code Box -->
+                            <div class="bg-white rounded-2xl p-4 shadow-xl text-center z-10 mx-auto w-[200px] border-2 border-mandiri-gold flex flex-col items-center">
+                                <div id="qrcode-displaymeja" class="p-1 bg-white rounded-lg"></div>
+                                <div class="mt-2 text-[10px] font-bold text-mandiri-navy tracking-widest font-mono border-t border-slate-100 pt-1.5 w-full">
+                                    REF: <span class="display-ref-code text-mandiri-blue">MGM1AUW8PV</span>
+                                </div>
+                            </div>
+
+                            <!-- Footer Info -->
+                            <div class="text-center z-10 border-t border-white/20 pt-3">
+                                <div class="text-[11px] font-bold text-white flex items-center justify-center gap-1">
+                                    <i class="fa-solid fa-user text-mandiri-gold"></i>
+                                    <span class="display-staff-name">Budi Santoso</span>
+                                </div>
+                                <div class="text-[9px] text-slate-300 mt-0.5">
+                                    Bank Mandiri Cabang <span class="display-branch-name">Jakarta Glodok Pancoran</span> (<span class="display-branch-code">11541</span>)
+                                </div>
+                            </div>
+
+                            <!-- Background Decorative Orbs -->
+                            <div class="absolute -top-10 -right-10 w-32 h-32 bg-mandiri-gold/10 rounded-full blur-xl pointer-events-none"></div>
+                            <div class="absolute -bottom-10 -left-10 w-32 h-32 bg-mandiri-blue/40 rounded-full blur-xl pointer-events-none"></div>
+                        </div>
+
+                        <!-- VIEW 2: ID CARD PEGAWAI (Hidden by default) -->
+                        <div id="preview-idcard" class="card-preview hidden w-[280px] h-[450px] bg-white text-mandiri-navy rounded-2xl shadow-2xl flex flex-col justify-between relative border-2 border-slate-300 overflow-hidden">
+                            <!-- Top Header Banner -->
+                            <div class="bg-gradient-to-r from-mandiri-navy to-mandiri-blue p-4 text-white text-center relative flex flex-col items-center justify-center gap-1">
+                                <div class="font-poppins font-black text-xl tracking-wider text-white">
+                                    BANK MANDIRI
+                                </div>
+                                <div class="text-[10px] text-mandiri-gold font-semibold tracking-wider">
+                                    Cabang <span class="display-branch-name">Jakarta Glodok Pancoran</span> (<span class="display-branch-code">11541</span>)
+                                </div>
+                            </div>
+
+                            <!-- Body Info -->
+                            <div class="p-4 text-center flex-1 flex flex-col items-center justify-center gap-2">
+                                <div class="mt-1">
+                                    <div class="font-poppins font-bold text-slate-800 text-base display-staff-name">Budi Santoso</div>
+                                </div>
+
+                                <!-- QR Code Box -->
+                                <div class="my-2 p-2 bg-slate-50 rounded-xl border border-slate-200 flex flex-col items-center">
+                                    <div id="qrcode-idcard" class="p-1"></div>
+                                    <div class="text-[9px] font-mono font-bold text-mandiri-blue mt-1">
+                                        REF: <span class="display-ref-code">MGM1AUW8PV</span>
+                                    </div>
+                                </div>
+
+                                <div class="text-[9.5px] text-slate-600 font-medium leading-tight px-2">
+                                    Scan QR untuk Pembukaan Rekening Livin' Mandiri
+                                </div>
+                            </div>
+
+                            <!-- Footer Bar -->
+                            <div class="bg-slate-100 border-t border-slate-200 py-2.5 text-center text-[9px] text-slate-600 font-semibold px-2">
+                                Livin' Digital Onboarding • <span class="display-branch-name">Jakarta Glodok Pancoran</span>
+                            </div>
+                        </div>
+
+                        <!-- VIEW 3: DI BELAKANG KARTU NAMA (Simple Hitam Putih B&W) -->
+                        <div id="preview-namacard" class="card-preview hidden w-[350px] h-[200px] bg-white text-slate-900 rounded-lg shadow-xl p-4 flex flex-col justify-between border-2 border-slate-900 relative overflow-hidden">
+                            <!-- Top Header Line -->
+                            <div class="border-b-2 border-slate-900 pb-1.5 flex justify-between items-center">
+                                <div class="font-poppins font-black text-sm tracking-wider text-slate-900">
+                                    BANK MANDIRI
+                                </div>
+                                <div class="text-[9px] font-bold font-mono">
+                                    CABANG <span class="display-branch-code">11541</span>
+                                </div>
+                            </div>
+
+                            <!-- Main Body: QR + Details Grid -->
+                            <div class="flex items-center justify-between gap-3 my-auto">
+                                <div id="qrcode-namacard" class="p-1 border border-slate-900 rounded bg-white shrink-0"></div>
+                                
+                                <div class="flex-1 text-left space-y-1">
+                                    <div class="text-[11px] font-bold font-poppins leading-tight uppercase tracking-tight">
+                                        SCAN UNTUK BUKA REKENING
+                                    </div>
+                                    <div class="text-[9px] text-slate-700 leading-snug">
+                                        Praktis & Langsung Terhubung via HP
+                                    </div>
+                                    <div class="pt-1 border-t border-slate-300 font-mono text-[9px] font-bold">
+                                        REF: <span class="display-ref-code">MGM1AUW8PV</span>
+                                    </div>
+                                    <div class="text-[9px] font-bold text-slate-800">
+                                        <span class="display-staff-name">Budi Santoso</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Bottom Footer Line -->
+                            <div class="border-t border-slate-900 pt-1 text-[8px] text-slate-600 flex justify-between items-center font-mono">
+                                <span>LIVIN' BY MANDIRI</span>
+                                <span class="uppercase"><span class="display-branch-name">Jakarta Glodok Pancoran</span> (<span class="display-branch-code">11541</span>)</span>
+                            </div>
+                        </div>
+
+                        <!-- VIEW 4: STORY WHATSAPP (Hidden by default) -->
+                        <div id="preview-story" class="card-preview hidden w-[300px] h-[520px] bg-gradient-to-b from-mandiri-navy via-mandiri-blue to-mandiri-navy text-white rounded-3xl shadow-2xl p-6 flex flex-col justify-between text-center relative border-4 border-mandiri-gold overflow-hidden">
+                            <div class="pt-2 flex flex-col items-center">
+                                <div class="font-poppins font-black text-2xl tracking-wider text-white mb-2">
+                                    BANK MANDIRI
+                                </div>
+                                <div class="bg-mandiri-gold text-mandiri-navy font-extrabold text-[10px] px-3 py-1 rounded-full inline-block uppercase tracking-wider">
+                                    Digital Onboarding Share
+                                </div>
+                                <h3 class="font-poppins font-bold text-lg text-white mt-3 leading-snug">
+                                    Buka Rekening Mandiri Serba Praktis
+                                </h3>
+                                <p class="text-xs text-slate-200 mt-1">Bank Mandiri <span class="display-branch-name">Jakarta Glodok Pancoran</span></p>
+                            </div>
+
+                            <div class="bg-white text-mandiri-navy rounded-2xl p-4 shadow-2xl mx-auto w-[220px]">
+                                <div id="qrcode-story" class="p-1 flex justify-center"></div>
+                                <div class="text-[11px] font-bold mt-2 text-mandiri-blue font-mono">
+                                    REF: <span class="display-ref-code">MGM1AUW8PV</span>
+                                </div>
+                            </div>
+
+                            <div class="pb-2">
+                                <p class="text-[11px] text-mandiri-gold font-medium">
+                                    Scan QR Code di Atas untuk Mulai
+                                </p>
+                                <div class="text-[10px] text-slate-300 mt-1">
+                                    Contact: <span class="display-staff-name font-bold">Budi Santoso</span> (<span class="display-branch-code">11541</span>)
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- Live Encoded URL Bar -->
+                <div class="mt-4 bg-slate-50 rounded-xl p-3 border border-slate-200 flex items-center justify-between gap-3 text-xs">
+                    <div class="flex items-center gap-2 overflow-hidden w-full">
+                        <i class="fa-solid fa-shield-halved text-emerald-600 shrink-0"></i>
+                        <span class="font-semibold text-slate-600 whitespace-nowrap">Encoded DeepLink:</span>
+                        <code id="encoded-url-display" class="font-mono text-[10px] text-mandiri-blue truncate bg-white px-2 py-1 rounded border border-slate-200 w-full">
+                            https://bmri.id/reflivin?...
+                        </code>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 py-4 mt-auto text-center text-xs text-slate-500">
+        <p>© 2026 Bank Mandiri • Digital Onboarding & Referral System</p>
+    </footer>
+
+    <!-- Custom Toast Notification Box -->
+    <div id="toast-msg" class="fixed bottom-5 right-5 bg-mandiri-navy text-white px-4 py-3 rounded-xl shadow-2xl border border-mandiri-gold flex items-center gap-3 transition-all transform translate-y-20 opacity-0 pointer-events-none z-50 text-xs">
+        <i class="fa-solid fa-circle-check text-mandiri-gold text-base"></i>
+        <span id="toast-text">Notifikasi berhasil disalin!</span>
+    </div>
+
+    <script>
+        // Branch Mapping Dictionary
+        const BRANCH_MAP = {
+            "11500": "Jakarta Kota",
+            "11508": "Jakarta Glodok Plaza",
+            "11514": "Jakarta Pasar Pagi Lama",
+            "11516": "Jakarta Pejagalan",
+            "11525": "Jakarta Pinangsia",
+            "11529": "Jakarta Lindeteves",
+            "11535": "Jakarta Gajah Mada",
+            "11537": "Jakarta Jembatan Lima",
+            "11538": "Jakarta Ketapang Indah",
+            "11539": "Jakarta Mangga Besar",
+            "11540": "Jakarta Hayam Wuruk",
+            "11541": "Jakarta Glodok Pancoran",
+            "11542": "Jakarta Gedung PGN",
+            "11543": "Jakarta Mangga Besar Raya",
+            "11544": "Jakarta Kebon Jeruk III"
+        };
+
+        const DEFAULT_BRANCH = "11541";
+        const DEFAULT_REF = "MGM1AUW8PV";
+        
+        let currentTemplate = 'displaymeja';
+        let qrInstances = {};
+
+        window.onload = function() {
+            initQRCodes();
+            bindEventListeners();
+            updateAllPreviews();
+        };
+
+        function getTargetUrl() {
+            const refInput = document.getElementById('input-ref-code')?.value;
+            const branchSelect = document.getElementById('select-branch-code')?.value;
+            
+            const ref = (refInput && refInput.trim() !== '') ? refInput.trim() : DEFAULT_REF;
+            const branch = (branchSelect && branchSelect.trim() !== '') ? branchSelect.trim() : DEFAULT_BRANCH;
+            
+            return `https://bmri.id/reflivin?af_adset=${ref}&deep_link_sub1=${branch}&deep_link_sub2=${ref}`;
+        }
+
+        function initQRCodes() {
+            const containers = ['displaymeja', 'idcard', 'namacard', 'story'];
+            const url = getTargetUrl();
+
+            containers.forEach(id => {
+                const elem = document.getElementById(`qrcode-${id}`);
+                if (!elem) return;
+                elem.innerHTML = '';
+                
+                let size = 130;
+                if (id === 'idcard') size = 110;
+                if (id === 'namacard') size = 90;
+                if (id === 'story') size = 140;
+
+                const darkColor = (id === 'namacard') ? "#000000" : "#002D62";
+                
+                qrInstances[id] = new QRCode(elem, {
+                    text: url,
+                    width: size,
+                    height: size,
+                    colorDark: darkColor,
+                    colorLight: "#ffffff",
+                    correctLevel: QRCode.CorrectLevel.H
+                });
+            });
+
+            document.getElementById('encoded-url-display').innerText = url;
+        }
+
+        function updateQRCodes() {
+            const url = getTargetUrl();
+            Object.keys(qrInstances).forEach(id => {
+                if (qrInstances[id]) {
+                    qrInstances[id].clear();
+                    qrInstances[id].makeCode(url);
+                }
+            });
+            document.getElementById('encoded-url-display').innerText = url;
+        }
+
+        function bindEventListeners() {
+            const nameInput = document.getElementById('input-staff-name');
+            const refInput = document.getElementById('input-ref-code');
+            const branchSelect = document.getElementById('select-branch-code');
+
+            if (nameInput) {
+                ['input', 'keyup', 'change', 'paste'].forEach(evt => {
+                    nameInput.addEventListener(evt, updateTextDisplays);
+                });
+            }
+
+            if (refInput) {
+                ['input', 'keyup', 'change', 'paste'].forEach(evt => {
+                    refInput.addEventListener(evt, function() {
+                        updateTextDisplays();
+                        updateQRCodes();
+                    });
+                });
+            }
+
+            if (branchSelect) {
+                branchSelect.addEventListener('change', function() {
+                    updateTextDisplays();
+                    updateQRCodes();
+                });
+            }
+        }
+
+        function updateTextDisplays() {
+            const nameVal = document.getElementById('input-staff-name')?.value;
+            const branchVal = document.getElementById('select-branch-code')?.value;
+            const refVal = document.getElementById('input-ref-code')?.value;
+
+            const name = (nameVal !== undefined && nameVal !== null && nameVal.trim() !== '') ? nameVal : "Budi Santoso";
+            const branchCode = (branchVal !== undefined && branchVal !== null) ? branchVal : DEFAULT_BRANCH;
+            const branchName = BRANCH_MAP[branchCode] || "Jakarta Glodok Pancoran";
+            const ref = (refVal !== undefined && refVal !== null && refVal.trim() !== '') ? refVal : DEFAULT_REF;
+
+            document.querySelectorAll('.display-staff-name').forEach(e => e.innerText = name);
+            document.querySelectorAll('.display-branch-code').forEach(e => e.innerText = branchCode);
+            document.querySelectorAll('.display-branch-name').forEach(e => e.innerText = branchName);
+            document.querySelectorAll('.display-branch-info').forEach(e => e.innerText = `${branchCode} - ${branchName}`);
+            document.querySelectorAll('.display-ref-code').forEach(e => e.innerText = ref);
+        }
+
+        function resetDefaultRef() {
+            document.getElementById('input-ref-code').value = DEFAULT_REF;
+            document.getElementById('select-branch-code').value = DEFAULT_BRANCH;
+            updateTextDisplays();
+            updateQRCodes();
+            showToast("Kode dikembalikan ke default cabang " + DEFAULT_BRANCH);
+        }
+
+        function selectTemplate(tplKey) {
+            currentTemplate = tplKey;
+
+            // Reset active button state
+            document.querySelectorAll('.template-card').forEach(b => b.classList.remove('active'));
+            const activeBtn = document.getElementById(`tpl-btn-${tplKey}`);
+            if (activeBtn) activeBtn.classList.add('active');
+
+            // Hide all previews
+            document.querySelectorAll('.card-preview').forEach(c => c.classList.add('hidden'));
+
+            // Show selected preview
+            const activePreview = document.getElementById(`preview-${tplKey}`);
+            if (activePreview) activePreview.classList.remove('hidden');
+
+            // Update badge text
+            const names = {
+                'displaymeja': 'Display Meja (CS)',
+                'idcard': 'ID Card Pegawai',
+                'namacard': 'Belakang Kartu Nama (Simple B&W)',
+                'story': 'WhatsApp Story (9:16 Banner)'
+            };
+            document.getElementById('badge-tpl-name').innerText = names[tplKey] || tplKey;
+        }
+
+        function updateAllPreviews() {
+            updateTextDisplays();
+            updateQRCodes();
+        }
+
+        function downloadImage() {
+            const targetElement = document.getElementById(`preview-${currentTemplate}`);
+            showToast("Mengolah gambar kualitas tinggi untuk dicetak...");
+
+            html2canvas(targetElement, {
+                scale: 3, // High DPI rendering
+                useCORS: true,
+                backgroundColor: null
+            }).then(canvas => {
+                const link = document.createElement('a');
+                const staffName = (document.getElementById('input-staff-name').value || "Pegawai").replace(/\s+/g, '_');
+                const branchCode = document.getElementById('select-branch-code').value || DEFAULT_BRANCH;
+                link.download = `Mandiri_Onboarding_${currentTemplate}_${staffName}_Cabang_${branchCode}.png`;
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+                showToast("File gambar siap cetak telah diunduh!");
+            }).catch(err => {
+                showToast("Gagal mengunduh gambar. Silakan coba lagi.");
+            });
+        }
+
+        function printCard() {
+            window.print();
+        }
+
+        function copyTargetLink() {
+            const url = getTargetUrl();
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(url);
+                showToast("Link Referral DeepLink berhasil disalin!");
+            } else {
+                const input = document.createElement('input');
+                input.value = url;
+                document.body.appendChild(input);
+                input.select();
+                document.execCommand('copy');
+                document.body.removeChild(input);
+                showToast("Link Referral berhasil disalin!");
+            }
+        }
+
+        function showToast(text) {
+            const toast = document.getElementById('toast-msg');
+            const toastText = document.getElementById('toast-text');
+            toastText.innerText = text;
+
+            toast.classList.remove('translate-y-20', 'opacity-0', 'pointer-events-none');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-20', 'opacity-0', 'pointer-events-none');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
